@@ -4,10 +4,9 @@
   "description": "Backend for product management using Node.js and MongoDB Atlas",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "seed": "node scripts/seed.js",
-    "build": "npm install"
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
+    "seed": "node scripts/seed.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
