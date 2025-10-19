@@ -31,3 +31,8 @@ mongoose.connect(process.env.MONGODB_URI, { dbName: 'productsdb' })
     app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
   })
   .catch(err => console.error('MongoDB connection failed:', err));
+
+
+
+  // Add this at the end of your index.js file
+module.exports = app;
