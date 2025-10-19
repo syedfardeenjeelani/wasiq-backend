@@ -1,5 +1,9 @@
+// Load environment variables first
 require('dotenv').config();
+
+// Enable better error handling for async/await
 require('express-async-errors');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,12 +13,20 @@ const morgan = require('morgan');
 const productRoutes = require('./routes/products');
 const { errorHandler, notFound } = require('./middlewares/errors');
 
+// Initialize Express app
 const app = express();
 
+// Middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 app.get('/', (req, res) => res.send({ message: 'Products Backend Running 🚀' }));
 
