@@ -1,4 +1,6 @@
-const express = require('express');
+// Add this at the very top of api/index.js
+require('dotenv').config();
+console.log('MongoDB URI:', process.env.MONGODB_URI ? 'Present' : 'Missing!');const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -37,7 +39,17 @@ mongoose.connect(process.env.MONGODB_URI, {
   serverSelectionTimeoutMS: 5000,
   socketTimeoutMS: 45000
 })
-.then(() => console.log('✅ Connected to MongoDB Atlas'))
+.then(() => {
+  console.log('✅ Connected to MongoDB Atlas');
+  
+  // Only start the server if this file is run directly
+  if (require.main === module) {
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+  }
+})
 .catch(err => {
   console.error('❌ MongoDB connection failed:', err.message);
   process.exit(1);
