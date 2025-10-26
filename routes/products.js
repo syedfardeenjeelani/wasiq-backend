@@ -10,9 +10,9 @@ router.get('/', async (req, res) => {
 
 // CREATE new product
 router.post('/', async (req, res) => {
-  const { name, description, price, category, imageUrl, stock } = req.body;
+  const { name, description, price, discountedPrice, category, imageUrl, stock } = req.body;
   if (!name || price == null) return res.status(400).json({ error: 'Name and price are required' });
-  const product = new Product({ name, description, price, category, imageUrl, stock });
+  const product = new Product({ name, description, price, discountedPrice, category, imageUrl, stock });
   await product.save();
   res.status(201).json(product);
 });
